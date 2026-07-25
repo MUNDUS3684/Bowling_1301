@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Bowling : MonoBehaviour
 {
@@ -11,12 +12,35 @@ public class Bowling : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+            Shootball();
+
+        if (Keyboard.current.dKey.wasPressedThisFrame)
+            MoveRight();
+
+        if (Keyboard.current.aKey.wasPressedThisFrame)
+            MoveLeft();
+
+    }
+
+    private void Shootball()
+    {
+        rb.AddForce(Vector3.forward * forcePower, ForceMode.Impulse);
+    }
+
+    private void MoveRight()
+    {
+        transform.position += new Vector3(0.5f, 0f, 0f);
+    }
+
+    private void MoveLeft()
+    {
+        transform.position += new Vector3(-0.5f, 0f, 0f);
     }
 }
